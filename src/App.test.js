@@ -1,22 +1,16 @@
 // import { render, screen } from '@testing-library/react';
-import { shallow, configure } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16'
+import { shallow } from 'enzyme';
 
 import App, { add, multiply } from './App';
 import { fetchUserList } from './sampleApi'
-// import { worker } from './mocks/browser'
-import { server } from './mocks/server'
-import { mockFetchUserList } from './mocks/handlers'
 
-configure({ adapter: new Adapter() }) // Configuration of enzyme at initial
-
-// jest.mock('./sampleApi')
 
 describe('Testing the app component', () => { // describe is the block for the enclosing statements.
   const wrapper = shallow(<App />) // shallow only identifies the direct component elements. Not the childrens
   const addButton = wrapper.find('#add-btn')
   const subtractButton = wrapper.find('#remove-btn')
   beforeEach(() => jest.clearAllMocks()) // Clearing all the mocks.
+  
   test('check if app component has a only one classname like App', () => { // performs the test.
     expect(wrapper.find('.App')).toHaveLength(1) // expect is the expected result.
   })
@@ -100,7 +94,6 @@ describe('Testing the app component', () => { // describe is the block for the e
 describe('sample mock api test', () => { // Adding sample api request mocking 
   test('we should have ids as numbers and remaining as string', async () => {
     const resultData = await fetchUserList()
-    server.use(mockFetchUserList)
     expect(resultData.data).toEqual(
       expect.arrayContaining([
         expect.objectContaining({
