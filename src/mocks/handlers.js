@@ -21,6 +21,12 @@ export const handlers = [
             ctx.status(200),
             ctx.json({ message: 'User fetched successfully', data: [...userDetail.data] })
         )
+    }),
+    rest.get('https://reqres.in/api/loginRequest',(req, resp, ctx)=>{
+        return resp(
+            ctx.status(200),
+            ctx.json({message:'User loggedin successfully.'})
+        )
     })
 ]
 
